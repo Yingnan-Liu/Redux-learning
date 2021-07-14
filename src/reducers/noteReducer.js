@@ -32,7 +32,7 @@ export const createNote = (content) => {
 };
 export const toggleImportanceOf = (id) => {
   return {
-    type: "TOGGLE_IMPOTANCE",
+    type: "TOGGLE_IMPORTANCE",
     data: { id },
   };
 };

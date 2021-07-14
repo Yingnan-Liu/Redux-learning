@@ -11,8 +11,19 @@ const Note = ({ note, handleClick }) => (
 
 const Notes = () => {
   const dispatch = useDispatch();
-  //代替store.getState()  选择器函数
-  const notes = useSelector((state) => state);
+  //代替store.getState()  过滤器函数
+  const notes = useSelector((state) => {
+    switch (state.filter) {
+      case "ALL":
+        return state.notes;
+      case "IMPORTANT":
+        return state.notes.filter((note) => note.important);
+      case "NOTIMPORTANT":
+        return state.notes.filter((note) => !note.important);
+      default:
+        return state.notes;
+    }
+  });
 
   return (
     <ul>
