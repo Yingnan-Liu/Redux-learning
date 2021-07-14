@@ -11,6 +11,7 @@
 # production
 /build
 db.json
+/service
 
 # misc
 .DS_Store
