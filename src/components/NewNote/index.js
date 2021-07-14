@@ -1,10 +1,12 @@
 import React from "react";
 import { createNote } from "../../reducers/noteReducer";
 import { useDispatch } from "react-redux";
+import noteService from "../../services/notes";
+
 const NewNote = (props) => {
   const dispatch = useDispatch();
 
-  const addNote = (event) => {
+  const addNote = async (event) => {
     event.preventDefault();
     //获取name="note"的input的值
     const content = event.target.note.value;

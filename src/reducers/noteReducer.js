@@ -1,7 +1,11 @@
+import noteService from "../services/notes";
+
 const noteReducer = (state = [], action) => {
   switch (action.type) {
     case "NEW_NOTE":
       return state.concat(action.data);
+    case "INIT_NOTES":
+      return action.data;
     case "TOGGLE_IMPORTANCE": {
       const id = action.data.id;
       // 创建note副本
@@ -18,22 +22,27 @@ const noteReducer = (state = [], action) => {
   }
 };
 
-const generateId = () => Math.floor(Math.random() * 1000000);
+// const generateId = () => Math.floor(Math.random() * 1000000);
 // action creators
 export const createNote = (content) => {
-  return {
-    type: "NEW_NOTE",
-    data: {
-      content: content,
-      important: false,
-      id: generateId(),
-    },
+  return async (dispatch) => {
+    const newNote = await noteService.createNew(content);
+    dispatch({ type: "NEW_NOTE", data: newNote });
   };
 };
 export const toggleImportanceOf = (id) => {
   return {
     type: "TOGGLE_IMPORTANCE",
     data: { id },
+  };
+};
+export const initializeNotes = () => {
+  return async (dispatch) => {
+    const notes = await noteService.getAll();
+    dispatch({
+      type: "INIT_NOTES",
+      data: notes,
+    });
   };
 };
 export default noteReducer;

@@ -7,5 +7,15 @@ const getAll = async () => {
   const respnose = await axios.get(baseUrl);
   return respnose.data;
 };
+const createNew = async (content) => {
+  const object = { content, important: false };
+  const response = await axios.post(baseUrl, object);
+  console.log(response);
 
-export default { getAll };
+  return response.data;
+};
+// const updateNote = async (id, newNote) => {
+//   const response = await axios.put(`${baseUrl}/${id}`, newNote);
+//   return respnose.data;
+// };
+export default { getAll, createNew };
